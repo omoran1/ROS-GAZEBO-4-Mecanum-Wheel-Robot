@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="omni_car_bot">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="1.11022302462516E-16 -2.22044604925031E-16 -0.0199999999999999"
+        rpy="0 0 0" />
+      <mass
+        value="2.66827433388231" />
+      <inertia
+        ixx="0.0114820037616156"
+        ixy="1.21968818973766E-18"
+        ixz="-3.68628738645072E-18"
+        iyy="0.0204355385544635"
+        iyz="1.06496492593642E-20"
+        izz="0.0312127471004387" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="FR_Link">
+    <inertial>
+      <origin
+        xyz="6.66133814775094E-16 0.0160017848920315 -1.55431223447522E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.0498718217185732" />
+      <inertia
+        ixx="5.31880462049781E-06"
+        ixy="-8.28108527740682E-19"
+        ixz="-6.95943445287815E-19"
+        iyy="6.43852742037455E-06"
+        iyz="-6.88180358474224E-19"
+        izz="5.3188046204955E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/FR_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/FR_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_Joint"
+    type="continuous">
+    <origin
+      xyz="0.1 -0.15 -0.02"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="FR_Link" />
+    <axis
+      xyz="0 1 0" />
+ 
+  </joint>
+  <link
+    name="FL_Link">
+    <inertial>
+      <origin
+        xyz="-1.4432899320127E-15 -0.0160017848935616 -1.11022302462516E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.0498718217233151" />
+      <inertia
+        ixx="5.31880462048518E-06"
+        ixy="-2.39040482894815E-20"
+        ixz="-3.14699209684574E-19"
+        iyy="6.43852742042409E-06"
+        iyz="-9.8518976662263E-19"
+        izz="5.31880462048519E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/FL_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/FL_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_Joint"
+    type="continuous">
+    <origin
+      xyz="0.1 0.15 -0.0200000000000001"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="FL_Link" />
+    <axis
+      xyz="0 1 0" />
+
+  </joint>
+  <link
+    name="BR_Link">
+    <inertial>
+      <origin
+        xyz="-3.33066907387547E-16 0.0160017848920304 -3.33066907387547E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0498718217185727" />
+      <inertia
+        ixx="5.31880462048551E-06"
+        ixy="-4.54342809643235E-19"
+        ixz="-1.88544240102887E-19"
+        iyy="6.43852742036479E-06"
+        iyz="-6.45347496029804E-19"
+        izz="5.31880462049041E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/BR_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/BR_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BR_Joint"
+    type="continuous">
+    <origin
+      xyz="-0.1 -0.15 -0.02"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="BR_Link" />
+    <axis
+      xyz="0 1 0" />
+
+  </joint>
+  <link
+    name="BL_Link">
+    <inertial>
+      <origin
+        xyz="9.43689570931383E-16 -0.0160017848935639 -6.66133814775094E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0498718217233145" />
+      <inertia
+        ixx="5.31880462047778E-06"
+        ixy="1.58849166069145E-18"
+        ixz="-8.55820914082064E-19"
+        iyy="6.4385274204126E-06"
+        iyz="-2.65242579134579E-18"
+        izz="5.31880462047253E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/BL_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://omni_car_bot/meshes/BL_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BL_Joint"
+    type="continuous">
+    <origin
+      xyz="-0.0999999999999999 0.15 -0.02"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="BL_Link" />
+    <axis
+      xyz="0 1 0" />
+ 
+  </joint>
+  
+<gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+
+    <updateRate>100.0</updateRate>
+    
+    <leftFrontJoint>FL_Joint</leftFrontJoint>
+    <rightFrontJoint>FR_Joint</rightFrontJoint>
+    <leftRearJoint>BL_Joint</leftRearJoint>
+    <rightRearJoint>BR_Joint</rightRearJoint>
+    
+    <wheelSeparation>0.4</wheelSeparation> <wheelDiameter>0.215</wheelDiameter>
+    <torque>30</torque> <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <robotBaseFrame>base_link</robotBaseFrame>
+    
+  </plugin>
+</gazebo>
+	
+</robot>

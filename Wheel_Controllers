@@ -1,27 +1,25 @@
-# controllers.yaml
-# This file defines the controllers that will be loaded
+# Publishes the state of all joints
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
 
-# Controller for the Front Left Wheel
+# Wheel Controllers (ALL are now Velocity Controllers)
 fl_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: FL_Joint
-  pid: {p: 100.0, i: 0.01, d: 10.0}
+  pid: {p: 10.0, i: 0, d: 0.1}
 
-# Controller for the Front Right Wheel
 fr_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: FR_Joint
-  pid: {p: 100.0, i: 0.01, d: 10.0}
+  pid: {p: 10.0, i: 0, d: 0.1}
 
-# Controller for the Back Left Wheel
 bl_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: BL_Joint
-  pid: {p: 100.0, i: 0.01, d: 10.0}
+  pid: {p: 10.0, i: 0, d: 0.1}
 
-# Controller for the Back Right Wheel
 br_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: BR_Joint
-  pid: {p: 100.0, i: 0.01, d: 10.0}
-
+  pid: {p: 10.0, i: 0, d: 0.1}

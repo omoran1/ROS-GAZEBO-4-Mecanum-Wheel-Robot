@@ -1,0 +1,21 @@
+<launch>
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find omni_car_bot)/urdf/omni_car_bot.urdf'"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description -urdf -model omni_car_bot"
+          output="screen" />
+
+
+    <rosparam file="$(find omni_car_bot)/config/controllers.yaml" command="load"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+          args="joint_state_controller fl_wheel_controller fr_wheel_controller bl_wheel_controller br_wheel_controller"
+          launch-prefix="bash -c 'sleep 10.0; $0 $@' "/>
+
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+</launch>

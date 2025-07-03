@@ -1,25 +1,25 @@
-# Publishes the state of all joints
+# controllers.yaml
+
+# This controller is still needed to publish all joint states
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 
-# Wheel Controllers (ALL are now Velocity Controllers)
-fl_wheel_controller:
-  type: effort_controllers/JointVelocityController
-  joint: FL_Joint
-  pid: {p: 10.0, i: 0, d: 0.1}
+# The high-level controller for the whole chassis
+mecanum_drive_controller:
+  type: "mecanum_drive_controller/MecanumDriveController"
+  
+  # Names of the four wheel joints
+  front_left_joint: FL_Joint
+  front_right_joint: FR_Joint
+  back_left_joint: BL_Joint
+  back_right_joint: BR_Joint
 
-fr_wheel_controller:
-  type: effort_controllers/JointVelocityController
-  joint: FR_Joint
-  pid: {p: 10.0, i: 0, d: 0.1}
+  # --- Physical Properties ---
+  wheel_separation_w: 0.4  # Side-to-side distance between wheels
+  wheel_separation_l: 0.4  # Front-to-back distance between wheels
+  wheel_radius: 0.1075     # The radius of the wheels
 
-bl_wheel_controller:
-  type: effort_controllers/JointVelocityController
-  joint: BL_Joint
-  pid: {p: 10.0, i: 0, d: 0.1}
-
-br_wheel_controller:
-  type: effort_controllers/JointVelocityController
-  joint: BR_Joint
-  pid: {p: 10.0, i: 0, d: 0.1}
+  # --- ROS Interface ---
+  publish_rate: 50
+  enable_odom_tf: true # This tells it to publish odometry

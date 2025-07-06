@@ -4,16 +4,16 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="omni_car_bot">
-  <link name="base_footprint"></link>
+  <link name="base_footprint"></link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.12" rpy="0 0 0" />
+  </joint>
 
-  <joint name="base_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0.12" rpy="0 0 0" />
-  </joint>
-
-  <link name="base_link">
+<link name="base_link">
     <inertial>
+      <!-- The origin for physics should be at the link's center -->
       <origin xyz="0 0 0" rpy="0 0 0" />
       <mass value="2.5" />
       <inertia
@@ -22,9 +22,8 @@
         izz="0.03" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <!-- The origin for the visual mesh should be at the link's center -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://omni_car_bot/meshes/base_link.STL" />
@@ -35,162 +34,203 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-<collision>
-  <origin xyz="0 0 0" rpy="0 0 0" />
-  <geometry>
-    <box size="0.3 0.3 0.1"/>
-  </geometry>
-</collision>
-  </link>
-  
-  <link name="imu_link">
-  <visual>
-    <geometry><box size="0.01 0.01 0.01"/></geometry>
-  </visual>
-  <collision>
-    <geometry><box size="0.01 0.01 0.01"/></geometry>
-  </collision>
-  <inertial>
-    <mass value="0.01"/>
-    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
-  </inertial>
-</link>
-
-<joint name="imu_joint" type="fixed">
-  <parent link="base_link"/>
-  <child link="imu_link"/>
-  <origin xyz="0 0 0.05" rpy="0 0 0"/>
-</joint>
-  
-  <link name="gps_link"></link>
-  
-  <joint name="gps_joint" type="fixed">
-  <parent link="base_link"/>
-  <child link="gps_link"/>
-  <origin xyz="0.1 0 0.08" rpy="0 0 0"/>
-</joint>
-  
-<link name="FR_Link">
-    <inertial>
-      <origin xyz="-0.1 0.05 -.02" rpy="0 0 0"/>
-      <mass value="0.5"/>
-      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
-    </inertial>
-    <visual>
-      <origin xyz="-0.1 0.05 -.02" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://omni_car_bot/meshes/FR_Link.STL"/>
-      </geometry>
-    </visual>
     <collision>
-      <origin xyz="-0.1 0.05 -.02" rpy="1.5707 0 0"/>
+      <!-- The origin for the collision box should be at the link's center -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.1075" length="0.05"/>
+        <box size="0.3 0.3 0.1"/>
       </geometry>
     </collision>
-  </link>
+  </link>  
 
-  <joint name="FR_Joint" type="continuous">
+<!--FRONT RIGHT WHEEL-->
+
+  <!-- PART 1: The Revolute Joint that places the axle at the corner -->
+  <joint name="FR_axle_joint" type="continuous">
     <parent link="base_link"/>
-    <child link="FR_Link"/>
+    <child link="FR_axle_link"/>
+    <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
-  
-<link name="FL_Link">
+
+  <!-- PART 2: The new, invisible "axle" link. It's just a coordinate frame. -->
+  <link name="FR_axle_link"></link>
+
+  <!-- PART 3: A FIXED joint that applies the small visual offset -->
+  <joint name="FR_wheel_joint" type="fixed">
+    <parent link="FR_axle_link"/>
+    <child link="FR_Link"/>
+    <!-- This is where you put your visual correction offset -->
+    <origin xyz="-0.1 0.05 -.02" rpy="0 0 0"/>
+  </joint>
+
+  <!-- PART 4: The final wheel link, now perfectly balanced -->
+  <link name="FR_Link">
     <inertial>
-      <origin xyz="-0.1 -0.05 -.02" rpy="0 0 0"/>
+      <!-- All internal origins are now 0,0,0 for stability -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.5"/>
       <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
     </inertial>
     <visual>
-      <origin xyz="-0.1 -0.05 -.02" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://omni_car_bot/meshes/FR_Link.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.1075" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  
+<!--FRONT LEFT WHEEL -->
+
+  <!-- PART 1: The Revolute Joint that places the axle at the corner -->
+  <joint name="FL_axle_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="FL_axle_link"/>
+    <!-- This origin places the entire wheel assembly at the corner -->
+    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100.0" velocity="10.0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+
+  <!-- PART 2: The new, invisible "axle" link. It's just a coordinate frame. -->
+  <link name="FL_axle_link"></link>
+
+  <!-- PART 3: A FIXED joint that applies the small visual offset -->
+  <joint name="FL_wheel_joint" type="fixed">
+    <parent link="FL_axle_link"/>
+    <child link="FL_Link"/>
+    <!-- This is where you put your visual correction offset -->
+    <origin xyz="-0.1 -0.05 -.02" rpy="0 0 0"/>
+  </joint>
+
+  <!-- PART 4: The final wheel link, now perfectly balanced -->
+  <link name="FL_Link">
+    <inertial>
+      <!-- All internal origins are now 0,0,0 for stability -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/FL_Link.STL"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="-0.1 -0.05 -.02" rpy="1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
       <geometry>
         <cylinder radius="0.1075" length="0.05"/>
       </geometry>
     </collision>
   </link>
+  
+<!--BACK RIGHT WHEEL-->
 
-  <joint name="FL_Joint" type="continuous">
+  <!-- PART 1: The Revolute Joint that places the axle at the corner -->
+  <joint name="BR_axle_joint" type="continuous">
     <parent link="base_link"/>
-    <child link="FL_Link"/>
-    <origin xyz="0.2 0.2 0" rpy="0 0 0"/>
+    <child link="BR_axle_link"/>
+    <!-- This origin places the entire wheel assembly at the corner -->
+    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
 
-  
-<link name="BR_Link">
+  <!-- PART 2: The new, invisible "axle" link. It's just a coordinate frame. -->
+  <link name="BR_axle_link"></link>
+
+  <!-- PART 3: A FIXED joint that applies the small visual offset -->
+  <joint name="BR_wheel_joint" type="fixed">
+    <parent link="BR_axle_link"/>
+    <child link="BR_Link"/>
+    <!-- This is where you put your visual correction offset -->
+    <origin xyz="0.1 0.05 -.02" rpy="0 0 0"/>
+  </joint>
+
+  <!-- PART 4: The final wheel link, now perfectly balanced -->
+  <link name="BR_Link">
     <inertial>
-      <origin xyz="0.1 0.05 -.02" rpy="0 0 0"/>
+      <!-- All internal origins are now 0,0,0 for stability -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.5"/>
       <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
     </inertial>
     <visual>
-      <origin xyz="0.1 0.05 -.02" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/BR_Link.STL"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0.1 0.05 -.02" rpy="1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
       <geometry>
         <cylinder radius="0.1075" length="0.05"/>
       </geometry>
     </collision>
   </link>
+  
+<!-- BACK LEFT WHEEL -->
 
-  <joint name="BR_Joint" type="continuous">
+  <!-- PART 1: The Revolute Joint that places the axle at the corner -->
+  <joint name="BL_axle_joint" type="continuous">
     <parent link="base_link"/>
-    <child link="BR_Link"/>
-    <origin xyz="-0.2 -0.2 0" rpy="0 0 0"/>
+    <child link="BL_axle_link"/>
+    <!-- This origin places the entire wheel assembly at the corner -->
+    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
-  
-<link name="BL_Link">
+
+  <!-- PART 2: The new, invisible "axle" link. It's just a coordinate frame. -->
+  <link name="BL_axle_link"></link>
+
+  <!-- PART 3: A FIXED joint that applies the small visual offset -->
+  <joint name="BL_wheel_joint" type="fixed">
+    <parent link="BL_axle_link"/>
+    <child link="BL_Link"/>
+    <!-- This is where you put your visual correction offset -->
+    <origin xyz="0.1 -0.05 -.02" rpy="0 0 0"/>
+  </joint>
+
+  <!-- PART 4: The final wheel link, now perfectly balanced -->
+  <link name="BL_Link">
     <inertial>
-      <origin xyz="0.1 -0.05 -.02" rpy="0 0 0"/>
+      <!-- All internal origins are now 0,0,0 for stability -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.5"/>
       <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
     </inertial>
     <visual>
-      <origin xyz="0.1 -0.05 -.02" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/BL_Link.STL"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0.1 -0.05 -.02" rpy="1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
       <geometry>
         <cylinder radius="0.1075" length="0.05"/>
       </geometry>
     </collision>
   </link>
-
-  <joint name="BL_Joint" type="continuous">
-    <parent link="base_link"/>
-    <child link="BL_Link"/>
-    <origin xyz="-0.2 0.2 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="100.0" velocity="10.0"/>
-    <dynamics damping="0.7"/>
-  </joint>
-  
   
   <transmission name="fr_transmission">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="FR_Joint">
+  <joint name="FR_axle_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="fr_motor">
@@ -201,7 +241,7 @@
 
 <transmission name="fl_transmission">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="FL_Joint">
+  <joint name="FL_axle_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="fl_motor">
@@ -212,7 +252,7 @@
 
 <transmission name="br_transmission">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="BR_Joint">
+  <joint name="BR_axle_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="br_motor">
@@ -223,7 +263,7 @@
   
 <transmission name="bl_transmission">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="BL_Joint">
+  <joint name="BL_axle_joint">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="bl_motor">
@@ -239,23 +279,52 @@
   </plugin>
 </gazebo>
 
-<gazebo reference="imu_link">
-  <gravity>true</gravity>
-  <sensor name="imu_sensor" type="imu">
-    <always_on>true</always_on>
-    <update_rate>100</update_rate>
-    <visualize>true</visualize>
-    <topic>/imu/data</topic>
-  </sensor>
-</gazebo>
+<!-- ======================= SENSORS ======================= -->
 
-<gazebo reference="gps_link">
-  <sensor type="gps" name="gps_sensor">
-    <always_on>true</always_on>
-    <update_rate>1</update_rate>
-    <visualize>false</visualize>
-    <topic>/gps/fix</topic>
-  </sensor>
-</gazebo>
+  <!-- IMU Sensor Link and Joint -->
+  <link name="imu_link"></link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+  </joint>
 
+<!-- IMU Plugin (Robust Version) -->
+  <gazebo reference="imu_link">
+    <sensor type="imu" name="imu_sensor">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <!-- This will publish to /imu/data -->
+          <namespace>/imu</namespace>
+          <remapping>~/out:=data</remapping>
+        </ros>
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<!-- GPS Sensor Link and Joint -->
+  <link name="gps_link"></link>
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="0.1 0 0.08" rpy="0 0 0"/>
+  </joint>
+
+<!-- GPS Plugin (Robust Version) -->
+  <gazebo reference="gps_link">
+    <sensor type="gps" name="gps_sensor">
+      <always_on>true</always_on>
+      <update_rate>1</update_rate>
+      <plugin name="gps_plugin" filename="libgazebo_ros_gps_sensor.so">
+        <ros>
+          <!-- This will publish to /gps/fix -->
+          <namespace>/gps</namespace>
+          <remapping>~/out:=fix</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </gazebo>
 </robot>

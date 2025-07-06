@@ -51,7 +51,7 @@
     <child link="FR_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="1 0 0" /> 
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -69,24 +69,28 @@
 
   <!-- PART 4: The final wheel link, now perfectly balanced -->
   <link name="FR_Link">
-    <inertial>
-      <!-- All internal origins are now 0,0,0 for stability -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
-      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
-    </inertial>
+<inertial>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="0.5" />
+  <inertia 
+    ixx="0.001" ixy="0" ixz="0" 
+    iyy="0.002" iyz="0" 
+    izz="0.001" />
+</inertial>
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/FR_Link.STL"/>
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
-      <geometry>
-        <cylinder radius="0.1075" length="0.05"/>
-      </geometry>
-    </collision>
+<collision>
+  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <geometry>
+    <cylinder radius="0.1075" length="0.05"/>
+  </geometry>
+</collision>
   </link>
 
   
@@ -97,8 +101,8 @@
     <parent link="base_link"/>
     <child link="FL_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
-    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <origin xyz="0.2 0.2 0" rpy="0 0 0"/>
+   <axis xyz="1 0 0" /> 
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -116,24 +120,28 @@
 
   <!-- PART 4: The final wheel link, now perfectly balanced -->
   <link name="FL_Link">
-    <inertial>
-      <!-- All internal origins are now 0,0,0 for stability -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
-      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
-    </inertial>
+<inertial>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="0.5" />
+  <inertia 
+    ixx="0.001" ixy="0" ixz="0" 
+    iyy="0.002" iyz="0" 
+    izz="0.001" />
+</inertial>
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/FL_Link.STL"/>
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
-      <geometry>
-        <cylinder radius="0.1075" length="0.05"/>
-      </geometry>
-    </collision>
+<collision>
+  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <geometry>
+    <cylinder radius="0.1075" length="0.05"/>
+  </geometry>
+</collision>
   </link>
   
 <!--BACK RIGHT WHEEL-->
@@ -143,8 +151,8 @@
     <parent link="base_link"/>
     <child link="BR_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
-    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <origin xyz="-0.2 -0.2 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0" /> 
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -162,24 +170,28 @@
 
   <!-- PART 4: The final wheel link, now perfectly balanced -->
   <link name="BR_Link">
-    <inertial>
-      <!-- All internal origins are now 0,0,0 for stability -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
-      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
-    </inertial>
+<inertial>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="0.5" />
+  <inertia 
+    ixx="0.001" ixy="0" ixz="0" 
+    iyy="0.002" iyz="0" 
+    izz="0.001" />
+</inertial>
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/BR_Link.STL"/>
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
-      <geometry>
-        <cylinder radius="0.1075" length="0.05"/>
-      </geometry>
-    </collision>
+<collision>
+  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <geometry>
+    <cylinder radius="0.1075" length="0.05"/>
+  </geometry>
+</collision>
   </link>
   
 <!-- BACK LEFT WHEEL -->
@@ -189,8 +201,8 @@
     <parent link="base_link"/>
     <child link="BL_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
-    <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <origin xyz="-0.2 0.2 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0" /> 
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -208,24 +220,28 @@
 
   <!-- PART 4: The final wheel link, now perfectly balanced -->
   <link name="BL_Link">
-    <inertial>
-      <!-- All internal origins are now 0,0,0 for stability -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
-      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0028" iyz="0" izz="0.0015"/>
-    </inertial>
+<inertial>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <mass value="0.5" />
+  <inertia 
+    ixx="0.001" ixy="0" ixz="0" 
+    iyy="0.002" iyz="0" 
+    izz="0.001" />
+</inertial>
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://omni_car_bot/meshes/BL_Link.STL"/>
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
-      <geometry>
-        <cylinder radius="0.1075" length="0.05"/>
-      </geometry>
-    </collision>
+<collision>
+  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <geometry>
+    <cylinder radius="0.1075" length="0.05"/>
+  </geometry>
+</collision>
   </link>
   
   <transmission name="fr_transmission">

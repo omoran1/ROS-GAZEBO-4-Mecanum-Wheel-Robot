@@ -51,7 +51,7 @@
     <child link="FR_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0" /> 
+<axis xyz="0 1 0" />
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -85,8 +85,8 @@
       </geometry>
     </visual>
 <collision>
-  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
-  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <!-- The rpy must be "1.5707 0 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="1.5707 0 0" /> 
   <geometry>
     <cylinder radius="0.1075" length="0.05"/>
   </geometry>
@@ -102,7 +102,7 @@
     <child link="FL_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="0.2 0.2 0" rpy="0 0 0"/>
-   <axis xyz="1 0 0" /> 
+<axis xyz="0 1 0" />
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -136,8 +136,8 @@
       </geometry>
     </visual>
 <collision>
-  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
-  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <!-- The rpy must be "1.5707 0 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="1.5707 0 0" /> 
   <geometry>
     <cylinder radius="0.1075" length="0.05"/>
   </geometry>
@@ -152,7 +152,7 @@
     <child link="BR_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="-0.2 -0.2 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0" /> 
+<axis xyz="0 1 0" />
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -186,8 +186,8 @@
       </geometry>
     </visual>
 <collision>
-  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
-  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <!-- The rpy must be "1.5707 0 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="1.5707 0 0" /> 
   <geometry>
     <cylinder radius="0.1075" length="0.05"/>
   </geometry>
@@ -202,7 +202,7 @@
     <child link="BL_axle_link"/>
     <!-- This origin places the entire wheel assembly at the corner -->
     <origin xyz="-0.2 0.2 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0" /> 
+<axis xyz="0 1 0" />
     <limit effort="100.0" velocity="10.0"/>
     <dynamics damping="0.7"/>
   </joint>
@@ -236,8 +236,8 @@
       </geometry>
     </visual>
 <collision>
-  <!-- The rpy must be "0 1.5707 0" to lay the cylinder flat -->
-  <origin xyz="0 0 0" rpy="0 1.5707 0" /> 
+  <!-- The rpy must be "1.5707 0 0" to lay the cylinder flat -->
+  <origin xyz="0 0 0" rpy="1.5707 0 0" /> 
   <geometry>
     <cylinder radius="0.1075" length="0.05"/>
   </geometry>
